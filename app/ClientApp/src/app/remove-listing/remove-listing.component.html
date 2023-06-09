@@ -1,0 +1,8 @@
+<h1>Remove a Listing</h1>
+
+  <form [formGroup]="deleteForm" (ngSubmit)="removeListing()" >
+    <dt> Remove a Listing (Listing Id) </dt>
+    <input type="text" formControlName="listingId"/>
+    <input type="submit" value="remove"/>
+    <p *ngIf="isRemoved"> The listing is removed successfully. </p>
+  </form>

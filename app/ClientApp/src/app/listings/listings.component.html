@@ -1,0 +1,40 @@
+<h1 id="tableLabel">Car Listings</h1>
+
+<p *ngIf="!carListings?.length"><em>Loading...</em></p>
+
+<table class='table table-striped' aria-labelledby="tableLabel" *ngIf="carListings.length">
+  <thead>
+    <tr>
+      <th>Listing Id</th>
+      <th>Year</th>
+      <th>Make</th>
+      <th>Model</th>
+      <th>Comments</th>
+
+      <th>Name</th>
+      <th>Phone</th>
+      <th>Email</th>
+      <th>ABN</th>
+
+      <th>DAP</th>
+      <th>EGC</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let listing of carListings">
+      <td>{{ listing.id }}</td>
+      <td>{{ listing.year }}</td>
+      <td>{{ listing.make }}</td>
+      <td>{{ listing.model }}</td>
+      <td>{{ listing.comments }}</td>
+
+      <th>{{ listing.nonDealerDetails?.name ?? listing.dealerDetails?.name}}</th>
+      <th>{{ listing.nonDealerDetails?.contactNumber ?? listing.dealerDetails?.contactNumber}}</th>
+      <th>{{ listing.dealerDetails?.email ?? ""}}</th>
+      <th>{{ listing.dealerDetails?.abn ?? ""}}</th>
+
+      <td *ngIf="listing.driveAwayPrice !== 0">{{ listing.driveAwayPrice }}</td>
+      <td *ngIf="listing.excludingGovernmentCharges !== 0">{{ listing.excludingGovernmentCharges }}</td>
+    </tr>
+  </tbody>
+</table>

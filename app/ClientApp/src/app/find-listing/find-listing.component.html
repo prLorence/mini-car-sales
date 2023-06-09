@@ -1,0 +1,59 @@
+<h1>Find a Listing</h1>
+
+<div>
+  <form [formGroup]="searchForm" (ngSubmit)="searchListing()" >
+    <dt> Search by Listing Id </dt>
+    <input type="text" formControlName="searchId"/>
+    <input type="submit" value="search"/>
+  </form>
+  <div *ngIf="listing">
+    <dt>Year</dt>
+    <dd>{{ listing.year }}</dd>
+
+    <dt>Make</dt>
+    <dd>{{ listing.make }}</dd>
+
+    <dt>Model</dt>
+    <dd>{{ listing.model }}</dd>
+
+    <dt>Comments</dt>
+    <dd> {{ listing.comments }} </dd>
+
+    <div *ngIf="listing.driveAwayPrice !== 0">
+      <dt>Drive Away Price (DAP)</dt>
+      <dd> {{ listing.driveAwayPrice }} </dd>
+    </div>
+
+    <div *ngIf="listing.excludingGovernmentCharges !== 0">
+      <dt>Excluding Government Charges (EGC)</dt>
+      <dd> {{ listing.excludingGovernmentCharges }} </dd>
+    </div>
+
+
+    <div *ngIf="listing.dealerDetails === null; else elseBlock">
+      <dt>Name</dt>
+      <dd>{{ listing.nonDealerDetails?.name }}</dd>
+
+      <dt>Phone</dt>
+      <dd>{{ listing.nonDealerDetails?.contactNumber }}</dd>
+    </div>
+
+    <ng-template #elseBlock>
+      <div>
+        <dt>Name</dt>
+        <dd>{{ listing.dealerDetails?.name }}</dd>
+
+        <dt>Phone</dt>
+        <dd>{{ listing.dealerDetails?.contactNumber }}</dd>
+
+        <dt>Email</dt>
+        <dd>{{ listing.dealerDetails?.email }}</dd>
+
+        <dt>ABN</dt>
+        <dd>{{ listing.dealerDetails?.abn }}</dd>
+      </div>
+    </ng-template>
+  </div>
+</div>
+
+

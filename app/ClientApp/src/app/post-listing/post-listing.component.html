@@ -1,0 +1,103 @@
+<h1>Post a Listing</h1>
+
+
+<div>
+  <form [formGroup]="createForm" (ngSubmit)="createListing()">
+    <dt>Year</dt>
+    <input type="text" formControlName="year"/>
+
+    <dt>Make</dt>
+    <input type="text" formControlName="make"/>
+
+    <dt>Model</dt>
+    <input type="text" formControlName="model"/>
+
+    <dt>Comments</dt>
+    <textarea formControlName="comments"></textarea>
+
+    <div>
+      <dt>Price</dt>
+      <label>
+        <input
+          type="radio"
+          name="priceType"
+          [(ngModel)]="priceType"
+          [ngModelOptions]="{standalone: true}"
+          value="dap"
+          (change)="createForm.controls['driveAwayPrice'].markAsDirty(); createForm.controls['driveAwayPrice'].markAsTouched();"
+          />
+        DAP
+      </label>
+      <label>
+        <input
+          type="radio"
+          name="priceType"
+          [(ngModel)]="priceType"
+          [ngModelOptions]="{standalone: true}"
+          value="egc"
+          (change)="createForm.controls['excludingGovernmentCharges'].markAsDirty(); createForm.controls['excludingGovernmentCharges'].markAsTouched();"
+          />
+        EGC
+      </label>
+    </div>
+
+    <div>
+      <dt *ngIf="priceType === 'dap'">Drive Away Price (DAP)</dt>
+      <input type="text" *ngIf="priceType === 'dap'" formControlName="driveAwayPrice"/>
+
+      <dt *ngIf="priceType === 'egc'">Excluding Government Charges (EGC)</dt>
+      <input type="text" *ngIf="priceType === 'egc'" formControlName="excludingGovernmentCharges"/>
+    </div>
+
+    <div>
+      <dt>Vehicle Type</dt>
+      <label>
+        <input
+          type="radio"
+          name="dealerType"
+          [(ngModel)]="dealerType"
+          [ngModelOptions]="{standalone: true}"
+          value="non-dealer"
+          (change)="nonDealerDetailsForm.markAsDirty(); nonDealerDetailsForm.markAsTouched();"
+          /> Non-Dealer
+      </label>
+      <label>
+        <input
+          type="radio"
+          name="dealerType"
+          [(ngModel)]="dealerType"
+          [ngModelOptions]="{standalone: true}"
+          value="dealer"
+          (change)="dealerDetailsForm.markAsDirty(); dealerDetailsForm.markAsTouched();"
+          /> Dealer
+      </label>
+    </div>
+
+    <div *ngIf="dealerType === 'non-dealer'" [formGroup]="nonDealerDetailsForm">
+      <dt>Name</dt>
+      <input type="text" formControlName="name" required/>
+
+      <dt>Phone</dt>
+      <input type="text" formControlName="contactNumber" required/>
+    </div>
+
+      <div *ngIf="dealerType === 'dealer'" [formGroup]="dealerDetailsForm">
+        <dt>Name</dt>
+        <input type="text" formControlName="name" required/>
+
+        <dt>Phone</dt>
+        <input type="text" formControlName="contactNumber" required/>
+
+        <dt>Email</dt>
+        <input type="email" formControlName="email" required/>
+
+        <dt>ABN</dt>
+        <input type="text" formControlName="abn" required/>
+      </div>
+
+    <input type="submit" value="submit"/>
+
+  </form>
+</div>
+
+

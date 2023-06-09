@@ -1,0 +1,58 @@
+<h1>Edit a Listing</h1>
+
+
+<div>
+  <form [formGroup]="searchForm" (ngSubmit)="searchListing()" >
+    <dt> Search by Listing Id </dt>
+    <input type="text" formControlName="searchId"/>
+    <input type="submit" value="search"/>
+  </form>
+  <form *ngIf="listingToEdit" [formGroup]="editForm" (ngSubmit)="updateListing()">
+    <dt>Year</dt>
+    <dd>{{ listingToEdit.year }}</dd>
+
+    <dt>Make</dt>
+    <dd>{{ listingToEdit.make }}</dd>
+
+    <dt>Model</dt>
+    <dd>{{ listingToEdit.model }}</dd>
+
+    <dt>Comments</dt>
+    <textarea formControlName="comments"> {{ listingToEdit.comments }}</textarea>
+
+    <dt>Drive Away Price (DAP)</dt>
+    <input *ngIf="listingToEdit.driveAwayPrice !== 0" type="text" formControlName="driveAwayPrice"/>
+
+    <dt>Excluding Government Charges (EGC)</dt>
+    <input *ngIf="listingToEdit.excludingGovernmentCharges !== 0" type="text" formControlName="excludingGovernmentCharges"/>
+
+    <div *ngIf="listingToEdit.dealerDetails === null; else elseBlock">
+      <dt>Name</dt>
+      <dd>{{ listingToEdit.nonDealerDetails?.name }}</dd>
+
+      <dt>Phone</dt>
+      <dd>{{ listingToEdit.nonDealerDetails?.contactNumber }}</dd>
+    </div>
+
+    <ng-template #elseBlock>
+      <div>
+        <dt>Name</dt>
+        <dd>{{ listingToEdit.dealerDetails?.name }}</dd>
+
+        <dt>Phone</dt>
+        <dd>{{ listingToEdit.dealerDetails?.contactNumber }}</dd>
+
+        <dt>Email</dt>
+        <dd>{{ listingToEdit.dealerDetails?.email }}</dd>
+
+        <dt>ABN</dt>
+        <dd>{{ listingToEdit.dealerDetails?.abn }}</dd>
+      </div>
+    </ng-template>
+
+    <input type="submit" value="submit"/>
+
+  </form>
+</div>
+
+

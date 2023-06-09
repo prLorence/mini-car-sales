@@ -1,0 +1,11 @@
+# running the db docker
+docker run -d --name vehicles_db -p 5432:5432 -e POSTGRES_PASSWORD=postgres -v postgres:/var/lib/postgresql/data postgres
+
+# connecting the db to docker network
+docker network connect mvc vehicles_db
+
+# run the application
+dotnet run (using appsettings.Development.json connection string)
+
+
+
