@@ -52,18 +52,18 @@ export class PostListingComponent {
       make: this.createForm.get('make').value,
       model: this.createForm.get('model').value,
       comments: this.createForm.get('comments').value,
-      driveAwayPrice: this.createForm.get('driveAwayPrice').value ?? 0,
-      excludingGovernmentCharges: this.createForm.get('excludingGovernmentCharges').value ?? 0,
-      nonDealerDetails: {
+      driveAwayPrice: this.priceType === "dap" ? this.createForm.get('driveAwayPrice').value : 0,
+      excludingGovernmentCharges: this.priceType === "egc" ? this.createForm.get('excludingGovernmentCharges').value : 0,
+      nonDealerDetails: this.dealerType === "non-dealer" ? {
         name: this.nonDealerDetailsForm.get('name').value,
         contactNumber: this.nonDealerDetailsForm.get('contactNumber').value
-      },
-      dealerDetails: {
+      } : null,
+      dealerDetails: this.dealerType === "dealer" ? {
         name: this.dealerDetailsForm.get('name').value,
         contactNumber: this.dealerDetailsForm.get('contactNumber').value,
         email: this.dealerDetailsForm.get('email').value,
         abn: this.dealerDetailsForm.get('abn').value
-      },
+      } : null,
     };
 
     console.log(newListing);

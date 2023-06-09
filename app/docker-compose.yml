@@ -21,13 +21,9 @@ services:
       context: .
       dockerfile: Dockerfile
     ports:
-      - 44496:80
-      - 5000:5041
-      - 5001:7087
+      - 3000:80
     environment:
-      DB_CONNECTION_STRING: Host=db;Database=vehicls_db;Port=5432;User
-        Id=postgres;password=postgres
-
+      DB_CONNECTION_STRING: Host=db;Database=vehicles_db;Port=5432;UserId=postgres;password=postgres
 volumes:
   postgres:
 
